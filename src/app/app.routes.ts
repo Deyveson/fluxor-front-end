@@ -17,5 +17,25 @@ export const routes: Routes = [
     {
         path: 'agenda',
         loadComponent: () => import('./pages/agenda/agenda').then(m => m.Agenda)
+    },
+    {
+        path: 'clientes',
+        loadComponent: () => import('./pages/clientes/clientes').then(m => m.Clientes)
+    },
+    {
+        path: 'profissionais',
+        loadComponent: () => import('./pages/profissionais/profissionais').then(m => m.Profissionais)
+    },
+    {
+        path: 'servicos',
+        loadComponent: () => import('./pages/servicos/servicos').then(m => m.Servicos)
+    },
+    {
+        path: 'lista-espera',
+        loadComponent: () => import('./pages/lista-espera/lista-espera').then(m => m.ListaEspera)
+    },
+    {
+        path: 'relatorios',
+        loadComponent: () => import('./pages/relatorios/relatorios').then(m => m.Relatorios)
     }
 ];

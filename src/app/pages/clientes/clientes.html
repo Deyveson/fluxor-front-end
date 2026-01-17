@@ -1,0 +1,152 @@
+<div class="clientes-container">
+  <app-sidebar></app-sidebar>
+  
+  <div class="main-content">
+    <header class="content-header">
+      <input
+        type="text"
+        placeholder="Buscar pacientes, agendamentos..."
+        class="search-input"
+      />
+      <div class="header-right">
+        <button class="icon-button">
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <div class="user-profile">
+          <span>Igor Rogério Freitas</span>
+          <div class="avatar">IF</div>
+          <button class="icon-button">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div class="page-header">
+        <div class="header-info">
+          <h1>Clientes</h1>
+          <p>Gerencie todos os clientes da sua clínica</p>
+        </div>
+        <button class="btn-novo" (click)="novoCliente()">
+          <mat-icon>add</mat-icon>
+          Novo Cliente
+        </button>
+      </div>
+
+      <div class="filters-bar">
+        <div class="search-box">
+          <mat-icon>search</mat-icon>
+          <input
+            type="text"
+            placeholder="Buscar por nome, CPF ou email..."
+            [(ngModel)]="searchText"
+            class="filter-input"
+          />
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-buttons">
+          <button
+            [class.active]="selectedFilter === 'todos'"
+            (click)="selectedFilter = 'todos'"
+            class="filter-btn"
+          >
+            Todos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'ativos'"
+            (click)="selectedFilter = 'ativos'"
+            class="filter-btn"
+          >
+            Ativos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'inativos'"
+            (click)="selectedFilter = 'inativos'"
+            class="filter-btn"
+          >
+            Inativos
+          </button>
+        </div>
+        <button class="btn-novo-right" (click)="novoCliente()">
+          <mat-icon>add</mat-icon>
+          Novo Cliente
+        </button>
+      </div>
+
+      <div class="clients-list">
+        <div *ngIf="clientesFiltrados.length > 0" class="list-container">
+          <div *ngFor="let cliente of clientesFiltrados" class="client-item">
+            <div class="item-left">
+              <div class="item-title-section">
+                <h3>{{ cliente.nome }}</h3>
+                <div class="item-badges">
+                  <span [class]="'status-badge ' + cliente.status">
+                    {{ cliente.status | uppercase }}
+                  </span>
+                </div>
+              </div>
+              <div class="item-details">
+                <div class="detail-item">
+                  <mat-icon>badge</mat-icon>
+                  <span>{{ cliente.cpf }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>phone</mat-icon>
+                  <span>{{ cliente.telefone }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>email</mat-icon>
+                  <span>{{ cliente.email }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>calendar_today</mat-icon>
+                  <span>Última consulta: {{ cliente.ultimaConsulta }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-right">
+              <button 
+                class="status-badge-btn"
+                [class]="'status-badge-' + cliente.status"
+                (click)="toggleStatus(cliente)"
+              >
+                <mat-icon>{{ cliente.status === 'ativo' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                <span>{{ cliente.status | uppercase }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="clientesFiltrados.length === 0" class="empty-state">
+          <mat-icon>people_outline</mat-icon>
+          <p>Nenhum cliente encontrado</p>
+        </div>
+      </div>
+
+      <div class="footer-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total de Clientes</span>
+          <span class="stat-value">{{ totalClientes }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Ativos</span>
+          <span class="stat-value ativo">{{ clientesAtivos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Inativos</span>
+          <span class="stat-value inativo">{{ clientesInativos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Consultas últimos 30 dias</span>
+          <span class="stat-value com-consulta">{{ clientesComConsulta }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

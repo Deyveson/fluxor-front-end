@@ -126,10 +126,14 @@
                   class="appointment-block"
                   *ngFor="let apt of getAppointmentsForProfessional(prof.id)"
                   [ngStyle]="getAppointmentStyle(apt)"
+                  [style.background-color]="getAppointmentColor(apt).background"
+                  [style.color]="getAppointmentColor(apt).color"
                   [class.blocked]="apt.status === 'blocked'">
                   <div class="appointment-content">
                     <strong>{{ apt.title }}</strong>
-                    <span>{{ apt.startTime }} - {{ apt.endTime }}</span>
+                    <span class="time">{{ apt.startTime }} - {{ apt.endTime }}</span>
+                    <span class="patient" *ngIf="apt.patientName">{{ apt.patientName }}</span>
+                    <span class="type" *ngIf="apt.appointmentType">{{ apt.appointmentType }}</span>
                   </div>
                 </div>
               </div>
@@ -160,10 +164,14 @@
                   class="appointment-block"
                   *ngFor="let apt of getAppointmentsForProfessional(1)"
                   [ngStyle]="getAppointmentStyle(apt)"
+                  [style.background-color]="getAppointmentColor(apt).background"
+                  [style.color]="getAppointmentColor(apt).color"
                   [class.blocked]="apt.status === 'blocked'">
                   <div class="appointment-content">
                     <strong>{{ apt.title }}</strong>
-                    <span>{{ apt.startTime }} - {{ apt.endTime }}</span>
+                    <span class="time">{{ apt.startTime }} - {{ apt.endTime }}</span>
+                    <span class="patient" *ngIf="apt.patientName">{{ apt.patientName }}</span>
+                    <span class="type" *ngIf="apt.appointmentType">{{ apt.appointmentType }}</span>
                   </div>
                 </div>
               </div>

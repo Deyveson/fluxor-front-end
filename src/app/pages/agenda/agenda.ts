@@ -13,6 +13,7 @@ interface Professional {
   id: number;
   name: string;
   specialty: string;
+  color: string;
 }
 
 interface TimeSlot {
@@ -22,6 +23,8 @@ interface TimeSlot {
 
 interface Appointment {
   professionalId: number;
+  patientName?: string;
+  appointmentType?: string;
   startTime: string;
   endTime: string;
   title: string;
@@ -50,11 +53,11 @@ export class Agenda {
   selectedProfessional = 'todos';
 
   professionals: Professional[] = [
-    { id: 1, name: 'Dr. João Silva', specialty: 'Cardiologia' },
-    { id: 2, name: 'Dra. Maria Santos', specialty: 'Pediatria' },
-    { id: 3, name: 'Dr. Pedro Oliveira', specialty: 'Ortopedia' },
-    { id: 4, name: 'Dra. Rafaela Menezes Silva', specialty: 'Dermatologia' },
-    { id: 5, name: 'Dra. Juliana Pacheco R', specialty: 'Ginecologia' }
+    { id: 1, name: 'Dr. João Silva', specialty: 'Cardiologia', color: '#7c3aed' },
+    { id: 2, name: 'Dra. Maria Santos', specialty: 'Pediatria', color: '#10b981' },
+    { id: 3, name: 'Dr. Pedro Oliveira', specialty: 'Ortopedia', color: '#ec4899' },
+    { id: 4, name: 'Dra. Rafaela Menezes Silva', specialty: 'Dermatologia', color: '#3b82f6' },
+    { id: 5, name: 'Dra. Juliana Pacheco R', specialty: 'Ginecologia', color: '#f59e0b' }
   ];
 
   timeSlots: TimeSlot[] = [
@@ -82,19 +85,98 @@ export class Agenda {
   ];
 
   appointments: Appointment[] = [
+    // Dr. João Silva
     {
       professionalId: 1,
-      startTime: '12:00',
-      endTime: '14:00',
-      title: 'Bloqueado',
-      status: 'blocked'
+      patientName: 'João da Silva',
+      appointmentType: 'Consulta Geral',
+      startTime: '09:00',
+      endTime: '10:00',
+      title: 'Consulta Geral',
+      status: 'scheduled'
     },
     {
       professionalId: 1,
-      startTime: '17:00',
-      endTime: '18:30',
+      startTime: '12:00',
+      endTime: '13:00',
       title: 'Bloqueado',
       status: 'blocked'
+    },
+    // Dra. Maria Santos
+    {
+      professionalId: 2,
+      patientName: 'Maria Oliveira',
+      appointmentType: 'Consulta Pediatria',
+      startTime: '09:30',
+      endTime: '10:30',
+      title: 'Consulta Pediatria',
+      status: 'scheduled'
+    },
+    {
+      professionalId: 2,
+      patientName: 'Ana Costa',
+      appointmentType: 'Consulta Pediatria',
+      startTime: '14:00',
+      endTime: '15:00',
+      title: 'Consulta Pediatria',
+      status: 'scheduled'
+    },
+    // Dr. Pedro Oliveira
+    {
+      professionalId: 3,
+      patientName: 'Carlos Santos',
+      appointmentType: 'Consulta Ortopedia',
+      startTime: '10:00',
+      endTime: '11:30',
+      title: 'Consulta Ortopedia',
+      status: 'scheduled'
+    },
+    {
+      professionalId: 3,
+      patientName: 'Roberto Lima',
+      appointmentType: 'Acompanhamento',
+      startTime: '14:30',
+      endTime: '15:30',
+      title: 'Acompanhamento',
+      status: 'scheduled'
+    },
+    // Dra. Rafaela Menezes
+    {
+      professionalId: 4,
+      patientName: 'Beatriz Ferreira',
+      appointmentType: 'Consulta Dermatologia',
+      startTime: '08:30',
+      endTime: '09:30',
+      title: 'Consulta Dermatologia',
+      status: 'scheduled'
+    },
+    {
+      professionalId: 4,
+      patientName: 'Juliana Mendes',
+      appointmentType: 'Procedimento',
+      startTime: '15:00',
+      endTime: '16:00',
+      title: 'Procedimento',
+      status: 'scheduled'
+    },
+    // Dra. Juliana Pacheco
+    {
+      professionalId: 5,
+      patientName: 'Patricia Gomes',
+      appointmentType: 'Consulta Ginecologia',
+      startTime: '10:30',
+      endTime: '11:30',
+      title: 'Consulta Ginecologia',
+      status: 'scheduled'
+    },
+    {
+      professionalId: 5,
+      patientName: 'Fernanda Silva',
+      appointmentType: 'Ultrassom',
+      startTime: '15:30',
+      endTime: '16:30',
+      title: 'Ultrassom',
+      status: 'scheduled'
     }
   ];
 
@@ -186,5 +268,24 @@ export class Agenda {
 
   getAppointmentsForProfessional(professionalId: number): Appointment[] {
     return this.appointments.filter(apt => apt.professionalId === professionalId);
+  }
+
+  getProfessionalColor(professionalId: number): string {
+    const professional = this.professionals.find(p => p.id === professionalId);
+    return professional ? professional.color : '#ccc';
+  }
+
+  getAppointmentColor(appointment: Appointment): any {
+    const color = this.getProfessionalColor(appointment.professionalId);
+    if (appointment.status === 'blocked') {
+      return {
+        background: '#d1d5db',
+        color: '#6b7280'
+      };
+    }
+    return {
+      background: color,
+      color: 'white'
+    };
   }
 }

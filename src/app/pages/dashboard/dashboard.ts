@@ -9,21 +9,42 @@ import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, FormsModule, RouterOutlet, Sidebar, MatIcon, MatButtonModule, MatMenuModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    RouterOutlet, 
+    Sidebar, 
+    MatIcon, 
+    MatButtonModule, 
+    MatMenuModule
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
   userName = 'Igor Rogério Freitas';
   userInitials = 'IR';
-  patientName = '';
-  generatedLink = 'https://clinica.app/cliente/';
+  
+  // Filtros
+  selectedPeriod = 'ultimos-7-dias';
+  selectedProfessional = 'todos';
+  
+  periods = [
+    { value: 'ultimos-7-dias', label: 'Últimos 7 dias' },
+    { value: 'ultimos-30-dias', label: 'Últimos 30 dias' },
+    { value: 'este-mes', label: 'Este mês' },
+  ];
+  
+  professionals = [
+    { value: 'todos', label: 'Todos' },
+    { value: 'dra-ana', label: 'Dra. Ana Silva' },
+    { value: 'dr-carlos', label: 'Dr. Carlos Santos' },
+  ];
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   goToProfile(): void {
     console.log('Navegar para perfil');
-    // this.router.navigate(['/perfil']);
   }
 
   logout(): void {
@@ -32,20 +53,11 @@ export class Dashboard {
     this.router.navigate(['/login']);
   }
 
-  copyLink(): void {
-    navigator.clipboard.writeText(this.generatedLink);
-    console.log('Link copiado!');
-    // Aqui você pode adicionar um feedback visual (toast/snackbar)
-  }
-
-  shareWhatsApp(): void {
-    const message = encodeURIComponent(`Olá! Aqui está o link para acessar sua área do cliente: ${this.generatedLink}`);
-    window.open(`https://wa.me/?text=${message}`, '_blank');
-  }
-
-  shareEmail(): void {
-    const subject = encodeURIComponent('Acesso à Área do Cliente');
-    const body = encodeURIComponent(`Olá,\n\nAqui está o link para acessar sua área do cliente:\n${this.generatedLink}\n\nAtenciosamente,\nEquipe Fluxor`);
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  applyFilters(): void {
+    console.log('Filtros aplicados:', {
+      periodo: this.selectedPeriod,
+      profissional: this.selectedProfessional
+    });
+    // Aqui você pode fazer a chamada à API com os filtros
   }
 }

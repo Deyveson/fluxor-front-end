@@ -1,0 +1,167 @@
+<div class="servicos-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <header class="content-header">
+      <input
+        type="text"
+        placeholder="Buscar pacientes, agendamentos..."
+        class="search-input"
+      />
+      <div class="header-right">
+        <button class="icon-button">
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <div class="user-profile">
+          <span>Igor Rogério Freitas</span>
+          <div class="avatar">IF</div>
+          <button class="icon-button">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div class="page-header">
+        <div class="header-info">
+          <h1>Serviços</h1>
+          <p>Gerencie os serviços oferecidos, duração, preços e profissionais habilitados</p>
+        </div>
+        <button class="btn-novo" (click)="novoServico()">
+          <mat-icon>add</mat-icon>
+          Novo Serviço
+        </button>
+      </div>
+
+      <div class="info-card">
+        <div class="info-header">
+          <mat-icon>info</mat-icon>
+          <h3>Serviço como Elemento Central</h3>
+        </div>
+        <p>O serviço define duração, profissionais habilitados e controla toda a lógica de agendamento e agenda.</p>
+      </div>
+
+      <div class="filters-bar">
+        <div class="search-box">
+          <mat-icon>search</mat-icon>
+          <input
+            type="text"
+            placeholder="Buscar por nome do serviço..."
+            [(ngModel)]="searchText"
+            class="filter-input"
+          />
+        </div>
+        <div class="category-select">
+          <select [(ngModel)]="selectedCategory" class="select-input">
+            <option *ngFor="let cat of categories" [value]="cat.value">
+              {{ cat.label }}
+            </option>
+          </select>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-buttons">
+          <button
+            [class.active]="selectedFilter === 'todos'"
+            (click)="selectedFilter = 'todos'"
+            class="filter-btn"
+          >
+            Todos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'ativos'"
+            (click)="selectedFilter = 'ativos'"
+            class="filter-btn"
+          >
+            Ativos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'inativos'"
+            (click)="selectedFilter = 'inativos'"
+            class="filter-btn"
+          >
+            Inativos
+          </button>
+        </div>
+        <button class="btn-novo-right" (click)="novoServico()">
+          <mat-icon>add</mat-icon>
+          Novo Serviço
+        </button>
+      </div>
+
+      <div class="services-list">
+        <div *ngIf="servicosFiltrados.length > 0" class="list-container">
+          <div *ngFor="let service of servicosFiltrados" class="service-item">
+            <div class="item-left">
+              <div class="item-title-section">
+                <h3>{{ service.nome }}</h3>
+                <div class="item-badges">
+                  <span [class]="'tipo-badge ' + getTipoBadgeColor(service.tipo)">
+                    {{ service.tipo }}
+                  </span>
+                  <span [class]="'status-badge ' + service.status">
+                    {{ service.status | uppercase }}
+                  </span>
+                </div>
+              </div>
+              <div class="item-details">
+                <div class="detail-item">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ service.duracao }} min</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <span class="price">R$ {{ service.preco | number: '1.2-2' }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>people</mat-icon>
+                  <span>{{ service.profissionais }} profissional(is) habilitado(s)</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <span class="descricao">{{ service.descricao }}</span>
+              </div>
+            </div>
+            <div class="item-right">
+              <button 
+                class="status-badge-btn"
+                [class]="'status-badge-' + service.status"
+                (click)="toggleStatus(service)"
+              >
+                <mat-icon>{{ service.status === 'ativo' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                <span>{{ service.status | uppercase }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="servicosFiltrados.length === 0" class="empty-state">
+          <mat-icon>miscellaneous_services</mat-icon>
+          <p>Nenhum serviço encontrado</p>
+        </div>
+      </div>
+
+      <div class="footer-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total de Serviços</span>
+          <span class="stat-value">{{ totalServicos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Ativos</span>
+          <span class="stat-value ativo">{{ servicosAtivos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Inativos</span>
+          <span class="stat-value inativo">{{ servicosInativos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Sem Profissionais</span>
+          <span class="stat-value sem-prof">{{ servicosSemProfissionais }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

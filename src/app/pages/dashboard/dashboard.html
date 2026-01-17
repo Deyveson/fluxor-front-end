@@ -45,6 +45,29 @@
         <p>Aqui está um resumo do que está acontecendo na sua clínica hoje.</p>
       </div>
 
+      <!-- Filtros -->
+      <div class="filters-section">
+        <div class="filter-group">
+          <label for="period-select">Período:</label>
+          <select id="period-select" [(ngModel)]="selectedPeriod" class="filter-select">
+            <option *ngFor="let period of periods" [value]="period.value">
+              {{ period.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="professional-select">Profissional:</label>
+          <select id="professional-select" [(ngModel)]="selectedProfessional" class="filter-select">
+            <option *ngFor="let prof of professionals" [value]="prof.value">
+              {{ prof.label }}
+            </option>
+          </select>
+        </div>
+
+        <button class="filter-btn" (click)="applyFilters()">Filtrar</button>
+      </div>
+
       <!-- Aqui virá o conteúdo do dashboard -->
       <div class="stats-grid">
         <div class="stat-card blue">
@@ -114,101 +137,33 @@
         </div>
       </div>
 
-      <!-- Container com Ações Rápidas e Área do Cliente -->
-      <div class="actions-client-container">
-        <!-- Ações Rápidas -->
-        <div class="quick-actions">
-          <h2>Ações Rápidas</h2>
-          <div class="action-cards-grid">
-            <button class="action-card blue">
-              <mat-icon>event_note</mat-icon>
-              <span>Novo Agendamento</span>
-            </button>
-            
-            <button class="action-card green">
-              <mat-icon>person_add</mat-icon>
-              <span>Cadastrar Paciente</span>
-            </button>
-            
-            <button class="action-card pink">
-              <mat-icon>link</mat-icon>
-              <span>Link do Cliente</span>
-            </button>
-            
-            <button class="action-card orange">
-              <mat-icon>schedule</mat-icon>
-              <span>Lista de Espera</span>
-            </button>
-            
-            <button class="action-card purple">
-              <mat-icon>description</mat-icon>
-              <span>Relatórios</span>
-            </button>
-            
-            <button class="action-card dark">
-              <mat-icon>file_download</mat-icon>
-              <span>Exportar Dados</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Área do Cliente -->
-        <div class="client-area">
-          <div class="client-area-header">
-            <mat-icon class="area-icon">link</mat-icon>
-            <div>
-              <h3>Área do Cliente</h3>
-              <p>Gere e compartilhe o link de acesso</p>
-            </div>
-          </div>
+      <!-- Ações Rápidas -->
+      <div class="quick-actions">
+        <div class="action-cards-grid">
+          <button class="action-card blue">
+            <mat-icon>event_note</mat-icon>
+            <span>Novo Agendamento</span>
+          </button>
           
-          <div class="client-area-body">
-            <div class="input-group">
-              <label>Nome do Paciente</label>
-              <input 
-                type="text" 
-                placeholder="Digite o nome do paciente..."
-                [(ngModel)]="patientName"
-              >
-            </div>
-            
-            <div class="input-group">
-              <label>Link Gerado</label>
-              <div class="link-input-container">
-                <input 
-                  type="text" 
-                  readonly 
-                  [value]="generatedLink"
-                >
-                <button class="copy-btn" (click)="copyLink()">
-                  <mat-icon>content_copy</mat-icon>
-                  Copiar
-                </button>
-              </div>
-            </div>
-            
-            <div class="action-buttons">
-              <button class="share-btn copy" (click)="copyLink()">
-                <mat-icon>content_copy</mat-icon>
-                Copiar
-              </button>
-              
-              <button class="share-btn whatsapp" (click)="shareWhatsApp()">
-                <mat-icon>chat</mat-icon>
-                WhatsApp
-              </button>
-              
-              <button class="share-btn email" (click)="shareEmail()">
-                <mat-icon>email</mat-icon>
-                Email
-              </button>
-            </div>
-            
-            <a href="#" class="view-client-area">
-              <mat-icon>open_in_new</mat-icon>
-              Visualizar área do cliente
-            </a>
-          </div>
+          <button class="action-card green">
+            <mat-icon>person_add</mat-icon>
+            <span>Cadastrar Paciente</span>
+          </button>
+          
+          <button class="action-card pink">
+            <mat-icon>event_note</mat-icon>
+            <span>Adir Agenda</span>
+          </button>
+          
+          <button class="action-card orange">
+            <mat-icon>schedule</mat-icon>
+            <span>Lista de Espera</span>
+          </button>
+          
+          <button class="action-card purple">
+            <mat-icon>link</mat-icon>
+            <span>Link do Cliente</span>
+          </button>
         </div>
       </div>
 
@@ -217,7 +172,7 @@
         <!-- Receita vs Consultas -->
         <div class="revenue-chart">
           <div class="chart-header">
-            <h2>Receita vs Consultas</h2>
+            <h2>Receita & Consultas</h2>
             <div class="chart-legend">
               <span class="legend-item">
                 <span class="dot receita"></span>
@@ -244,8 +199,24 @@
                   <stop offset="0%" style="stop-color:rgba(236, 72, 153, 0.2);stop-opacity:1" />
                   <stop offset="100%" style="stop-color:rgba(236, 72, 153, 0);stop-opacity:1" />
                 </linearGradient>
+                <linearGradient id="consultasGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgba(168, 85, 247, 0.2);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:rgba(168, 85, 247, 0);stop-opacity:1" />
+                </linearGradient>
               </defs>
               
+              <!-- Consultas Line (Purple) -->
+              <polyline 
+                points="50,200 150,170 250,180 350,150 450,160 550,140" 
+                fill="none" 
+                stroke="#a855f7" 
+                stroke-width="3"/>
+              
+              <polygon 
+                points="50,200 150,170 250,180 350,150 450,160 550,140 550,250 50,250" 
+                fill="url(#consultasGradient)"/>
+              
+              <!-- Revenue Line (Pink) -->
               <polyline 
                 points="50,180 150,150 250,160 350,120 450,130 550,100" 
                 fill="none" 
@@ -298,7 +269,7 @@
                 <mat-icon>payments</mat-icon>
               </div>
               <div class="activity-details">
-                <p class="activity-title">Assistir gerado</p>
+                <p class="activity-title">Relatório gerado</p>
                 <span class="activity-subtitle">Beatriz Mendes - Maio</span>
                 <span class="activity-time">há 32 min</span>
               </div>
@@ -309,7 +280,7 @@
                 <mat-icon>event_busy</mat-icon>
               </div>
               <div class="activity-details">
-                <p class="activity-title">Reagendamento</p>
+                <p class="activity-title">Cancelamento</p>
                 <span class="activity-subtitle">Sara Lopes - 10h00</span>
                 <span class="activity-time">há 1h</span>
               </div>

@@ -1,0 +1,159 @@
+<div class="profissionais-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <header class="content-header">
+      <input
+        type="text"
+        placeholder="Buscar pacientes, agendamentos..."
+        class="search-input"
+      />
+      <div class="header-right">
+        <button class="icon-button">
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <div class="user-profile">
+          <span>Igor Rogério Freitas</span>
+          <div class="avatar">IF</div>
+          <button class="icon-button">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div class="page-header">
+        <div class="header-info">
+          <h1>Profissionais</h1>
+          <p>Gerencie profissionais, especialidades, serviços e disponibilidade para agendamentos</p>
+        </div>
+        <button class="btn-novo" (click)="novoProfissional()">
+          <mat-icon>add</mat-icon>
+          Novo Profissional
+        </button>
+      </div>
+
+      <div class="filters-bar">
+        <div class="search-box">
+          <mat-icon>search</mat-icon>
+          <input
+            type="text"
+            placeholder="Buscar por nome do profissional..."
+            [(ngModel)]="searchText"
+            class="filter-input"
+          />
+        </div>
+        <div class="category-select">
+          <select [(ngModel)]="selectedEspecialidade" class="select-input">
+            <option *ngFor="let esp of especialidades" [value]="esp.value">
+              {{ esp.label }}
+            </option>
+          </select>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-buttons">
+          <button
+            [class.active]="selectedFilter === 'todos'"
+            (click)="selectedFilter = 'todos'"
+            class="filter-btn"
+          >
+            Todos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'ativos'"
+            (click)="selectedFilter = 'ativos'"
+            class="filter-btn"
+          >
+            Ativos
+          </button>
+          <button
+            [class.active]="selectedFilter === 'inativos'"
+            (click)="selectedFilter = 'inativos'"
+            class="filter-btn"
+          >
+            Inativos
+          </button>
+        </div>
+        <button class="btn-novo-right" (click)="novoProfissional()">
+          <mat-icon>add</mat-icon>
+          Novo Profissional
+        </button>
+      </div>
+
+      <div class="professionals-list">
+        <div *ngIf="profissionaisFiltrados.length > 0" class="list-container">
+          <div *ngFor="let professional of profissionaisFiltrados" class="professional-item">
+            <div class="item-left">
+              <div class="item-title-section">
+                <h3>{{ professional.nome }}</h3>
+                <div class="item-badges">
+                  <span [class]="'status-badge ' + professional.status">
+                    {{ professional.status | uppercase }}
+                  </span>
+                  <span *ngIf="professional.acessoSistema" class="acesso-badge">
+                    <mat-icon>check_circle</mat-icon>
+                    Acesso ao sistema
+                  </span>
+                </div>
+              </div>
+              <div class="item-details">
+                <div class="detail-item">
+                  <mat-icon>stethoscope</mat-icon>
+                  <span>{{ professional.especialidade }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>phone</mat-icon>
+                  <span>{{ professional.telefone }}</span>
+                </div>
+                <div class="detail-separator">•</div>
+                <div class="detail-item">
+                  <mat-icon>email</mat-icon>
+                  <span>{{ professional.email }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-right">
+              <button 
+                class="status-badge-btn"
+                [class]="'status-badge-' + professional.status"
+                (click)="toggleStatus(professional)"
+              >
+                <mat-icon>{{ professional.status === 'ativo' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                <span>{{ professional.status | uppercase }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="profissionaisFiltrados.length === 0" class="empty-state">
+          <mat-icon>person_off</mat-icon>
+          <p>Nenhum profissional encontrado</p>
+        </div>
+      </div>
+
+      <div class="footer-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total de Profissionais</span>
+          <span class="stat-value">{{ totalProfissionais }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Ativos</span>
+          <span class="stat-value ativo">{{ profissionaisAtivos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Inativos</span>
+          <span class="stat-value inativo">{{ profissionaisInativos }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Sem Acesso ao Sistema</span>
+          <span class="stat-value sem-prof">{{ profissionaisSemAcesso }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

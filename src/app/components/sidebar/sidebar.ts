@@ -30,9 +30,9 @@ export class Sidebar {
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
     { label: 'Agenda', icon: 'calendar_today', route: '/agenda' },
-    { label: 'Pacientes', icon: 'people', route: '/pacientes' },
+    { label: 'Clientes', icon: 'people', route: '/clientes' },
     { label: 'Profissionais', icon: 'medical_services', route: '/profissionais' },
-    { label: 'Consultas', icon: 'assignment', route: '/consultas' },
+    { label: 'Serviços', icon: 'assignment', route: '/servicos' },
     { label: 'Lista de Espera', icon: 'schedule', route: '/lista-espera' },
     { label: 'Relatórios', icon: 'trending_up', route: '/relatorios' }
   ];

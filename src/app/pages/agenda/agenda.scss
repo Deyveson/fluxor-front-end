@@ -81,23 +81,23 @@
 .content-body {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 32px;
+  padding: 20px 24px;
 }
 
 // Toolbar da Agenda
 .agenda-toolbar {
   background: white;
-  padding: 20px 24px;
+  padding: 16px 20px;
   border-radius: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 
   .toolbar-left {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
   }
 
@@ -209,8 +209,8 @@
 .date-navigation {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 16px;
 
   .nav-btn {
     width: 36px;
@@ -283,12 +283,13 @@
 
   .time-column-header {
     width: 80px;
-    padding: 16px;
+    padding: 0px;
     font-size: 12px;
     font-weight: 600;
     color: #666;
     text-align: center;
     border-right: 1px solid #e0e0e0;
+    align-content: center
   }
 
   .professionals-header {
@@ -305,6 +306,23 @@
         border-right: none;
       }
 
+      // Cores de background suave para cada médico no cabeçalho
+      &:nth-child(1) {
+        background: rgba(124, 58, 237, 0.08);
+      }
+      &:nth-child(2) {
+        background: rgba(16, 185, 129, 0.08);
+      }
+      &:nth-child(3) {
+        background: rgba(236, 72, 153, 0.08);
+      }
+      &:nth-child(4) {
+        background: rgba(59, 130, 246, 0.08);
+      }
+      &:nth-child(5) {
+        background: rgba(245, 158, 11, 0.08);
+      }
+
       .professional-info {
         display: flex;
         flex-direction: column;
@@ -313,6 +331,7 @@
         strong {
           font-size: 14px;
           color: #333;
+          font-weight: 600;
         }
 
         span {
@@ -372,23 +391,27 @@
 
 .calendar-body {
   display: flex;
-  max-height: 600px;
+  max-height: none;
+  min-height: 1260px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .time-column {
     width: 80px;
     border-right: 1px solid #e0e0e0;
     background: #fafafa;
+    flex-shrink: 0;
 
     .time-slot {
       height: 60px;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      padding-top: 8px;
+      padding: 0;
       font-size: 12px;
       color: #666;
       border-bottom: 1px solid #e0e0e0;
+      font-weight: 500;
     }
   }
 
@@ -404,6 +427,23 @@
 
       &:last-child {
         border-right: none;
+      }
+
+      // Cores de background suave para cada médico
+      &:nth-child(1) {
+        background: rgba(124, 58, 237, 0.05);
+      }
+      &:nth-child(2) {
+        background: rgba(16, 185, 129, 0.05);
+      }
+      &:nth-child(3) {
+        background: rgba(236, 72, 153, 0.05);
+      }
+      &:nth-child(4) {
+        background: rgba(59, 130, 246, 0.05);
+      }
+      &:nth-child(5) {
+        background: rgba(245, 158, 11, 0.05);
       }
 
       .grid-lines {
@@ -505,10 +545,11 @@
           left: 6px;
           right: 6px;
           border-radius: 8px;
-          padding: 12px;
+          padding: 10px 8px;
           cursor: pointer;
           transition: all 0.2s ease;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+          border-left: 4px solid transparent;
 
           &.blocked {
             background: #cbd5e1;
@@ -538,12 +579,28 @@
             gap: 6px;
 
             strong {
-              font-size: 14px;
+              font-size: 13px;
               font-weight: 600;
+              line-height: 1.2;
             }
 
             span {
-              font-size: 12px;
+              font-size: 11px;
+              opacity: 0.9;
+              line-height: 1.1;
+
+              &.time {
+                font-weight: 500;
+              }
+
+              &.patient {
+                font-size: 10px;
+              }
+
+              &.type {
+                font-size: 10px;
+                opacity: 0.8;
+              }
             }
           }
         }

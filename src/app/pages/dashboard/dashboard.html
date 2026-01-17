@@ -83,6 +83,134 @@
           </div>
         </div>
       </div>
+
+      <!-- Estatísticas Rápidas -->
+      <div class="quick-stats">
+        <h2>Estatísticas Rápidas</h2>
+        <div class="quick-stats-grid">
+          <div class="quick-stat-card">
+            <p class="stat-label">Taxa de Comparecimento</p>
+            <div class="stat-value-row">
+              <h3>83.3%</h3>
+              <span class="change positive">+5.2%</span>
+            </div>
+          </div>
+          
+          <div class="quick-stat-card">
+            <p class="stat-label">Satisfação</p>
+            <div class="stat-value-row">
+              <h3>4.8</h3>
+              <span class="change negative">-0.3</span>
+            </div>
+          </div>
+          
+          <div class="quick-stat-card">
+            <p class="stat-label">No-Show</p>
+            <div class="stat-value-row">
+              <h3>16.7%</h3>
+              <span class="change negative">-2.1%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container com Ações Rápidas e Área do Cliente -->
+      <div class="actions-client-container">
+        <!-- Ações Rápidas -->
+        <div class="quick-actions">
+          <h2>Ações Rápidas</h2>
+          <div class="action-cards-grid">
+            <button class="action-card blue">
+              <mat-icon>event_note</mat-icon>
+              <span>Novo Agendamento</span>
+            </button>
+            
+            <button class="action-card green">
+              <mat-icon>person_add</mat-icon>
+              <span>Cadastrar Paciente</span>
+            </button>
+            
+            <button class="action-card pink">
+              <mat-icon>link</mat-icon>
+              <span>Link do Cliente</span>
+            </button>
+            
+            <button class="action-card orange">
+              <mat-icon>schedule</mat-icon>
+              <span>Lista de Espera</span>
+            </button>
+            
+            <button class="action-card purple">
+              <mat-icon>description</mat-icon>
+              <span>Relatórios</span>
+            </button>
+            
+            <button class="action-card dark">
+              <mat-icon>file_download</mat-icon>
+              <span>Exportar Dados</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Área do Cliente -->
+        <div class="client-area">
+          <div class="client-area-header">
+            <mat-icon class="area-icon">link</mat-icon>
+            <div>
+              <h3>Área do Cliente</h3>
+              <p>Gere e compartilhe o link de acesso</p>
+            </div>
+          </div>
+          
+          <div class="client-area-body">
+            <div class="input-group">
+              <label>Nome do Paciente</label>
+              <input 
+                type="text" 
+                placeholder="Digite o nome do paciente..."
+                [(ngModel)]="patientName"
+              >
+            </div>
+            
+            <div class="input-group">
+              <label>Link Gerado</label>
+              <div class="link-input-container">
+                <input 
+                  type="text" 
+                  readonly 
+                  [value]="generatedLink"
+                >
+                <button class="copy-btn" (click)="copyLink()">
+                  <mat-icon>content_copy</mat-icon>
+                  Copiar
+                </button>
+              </div>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="share-btn copy" (click)="copyLink()">
+                <mat-icon>content_copy</mat-icon>
+                Copiar
+              </button>
+              
+              <button class="share-btn whatsapp" (click)="shareWhatsApp()">
+                <mat-icon>chat</mat-icon>
+                WhatsApp
+              </button>
+              
+              <button class="share-btn email" (click)="shareEmail()">
+                <mat-icon>email</mat-icon>
+                Email
+              </button>
+            </div>
+            
+            <a href="#" class="view-client-area">
+              <mat-icon>open_in_new</mat-icon>
+              Visualizar área do cliente
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

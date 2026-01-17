@@ -1,0 +1,41 @@
+<div class="sidebar-container">
+  <div class="sidebar-header">
+    <div class="clinic-info">
+      <mat-icon class="clinic-icon">local_hospital</mat-icon>
+      <div class="clinic-details">
+        <h3>Clínica Pro</h3>
+        <p>Saúde da Gente</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </nav>
+
+  <div class="sidebar-footer">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let item of bottomMenuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </div>
+</div>

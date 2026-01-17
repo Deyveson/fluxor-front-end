@@ -211,6 +211,186 @@
           </div>
         </div>
       </div>
+
+      <!-- Container com Gráfico e Atividades Recentes -->
+      <div class="chart-activities-container">
+        <!-- Receita vs Consultas -->
+        <div class="revenue-chart">
+          <div class="chart-header">
+            <h2>Receita vs Consultas</h2>
+            <div class="chart-legend">
+              <span class="legend-item">
+                <span class="dot receita"></span>
+                Receita
+              </span>
+              <span class="legend-item">
+                <span class="dot consultas"></span>
+                Consultas
+              </span>
+            </div>
+          </div>
+          <div class="chart-placeholder">
+            <svg viewBox="0 0 600 300" class="chart-svg">
+              <!-- Grid lines -->
+              <line x1="50" y1="250" x2="550" y2="250" stroke="#e0e0e0" stroke-width="1"/>
+              <line x1="50" y1="200" x2="550" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+              <line x1="50" y1="150" x2="550" y2="150" stroke="#e0e0e0" stroke-width="1"/>
+              <line x1="50" y1="100" x2="550" y2="100" stroke="#e0e0e0" stroke-width="1"/>
+              <line x1="50" y1="50" x2="550" y2="50" stroke="#e0e0e0" stroke-width="1"/>
+              
+              <!-- Revenue Line (Pink gradient) -->
+              <defs>
+                <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgba(236, 72, 153, 0.2);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:rgba(236, 72, 153, 0);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              
+              <polyline 
+                points="50,180 150,150 250,160 350,120 450,130 550,100" 
+                fill="none" 
+                stroke="#ec4899" 
+                stroke-width="3"/>
+              
+              <polygon 
+                points="50,180 150,150 250,160 350,120 450,130 550,100 550,250 50,250" 
+                fill="url(#revenueGradient)"/>
+              
+              <!-- Months labels -->
+              <text x="50" y="275" font-size="12" fill="#666" text-anchor="middle">Jan</text>
+              <text x="150" y="275" font-size="12" fill="#666" text-anchor="middle">Fev</text>
+              <text x="250" y="275" font-size="12" fill="#666" text-anchor="middle">Mar</text>
+              <text x="350" y="275" font-size="12" fill="#666" text-anchor="middle">Abr</text>
+              <text x="450" y="275" font-size="12" fill="#666" text-anchor="middle">Maio</text>
+              <text x="550" y="275" font-size="12" fill="#666" text-anchor="middle">Jun</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Atividades Recentes -->
+        <div class="recent-activities">
+          <h2>Atividades Recentes</h2>
+          <div class="activities-list">
+            <div class="activity-item">
+              <div class="activity-icon blue">
+                <mat-icon>event</mat-icon>
+              </div>
+              <div class="activity-details">
+                <p class="activity-title">Novo paciente cadastrado</p>
+                <span class="activity-subtitle">Maria Oliveira</span>
+                <span class="activity-time">há 2 min</span>
+              </div>
+            </div>
+            
+            <div class="activity-item">
+              <div class="activity-icon green">
+                <mat-icon>check_circle</mat-icon>
+              </div>
+              <div class="activity-details">
+                <p class="activity-title">Agendamento confirmado</p>
+                <span class="activity-subtitle">João Silva - Dra. Ana</span>
+                <span class="activity-time">há 15 min</span>
+              </div>
+            </div>
+            
+            <div class="activity-item">
+              <div class="activity-icon pink">
+                <mat-icon>payments</mat-icon>
+              </div>
+              <div class="activity-details">
+                <p class="activity-title">Assistir gerado</p>
+                <span class="activity-subtitle">Beatriz Mendes - Maio</span>
+                <span class="activity-time">há 32 min</span>
+              </div>
+            </div>
+            
+            <div class="activity-item">
+              <div class="activity-icon orange">
+                <mat-icon>event_busy</mat-icon>
+              </div>
+              <div class="activity-details">
+                <p class="activity-title">Reagendamento</p>
+                <span class="activity-subtitle">Sara Lopes - 10h00</span>
+                <span class="activity-time">há 1h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Próximos Agendamentos -->
+      <div class="upcoming-appointments">
+        <div class="appointments-header">
+          <h2>Próximos Agendamentos</h2>
+          <a href="#" class="view-all">Ver todos</a>
+        </div>
+        
+        <div class="appointments-list">
+          <div class="appointment-card">
+            <div class="appointment-avatar">MS</div>
+            <div class="appointment-info">
+              <h4>Maria Silva</h4>
+              <p>Consulta Geral</p>
+            </div>
+            <div class="appointment-time">
+              <mat-icon>schedule</mat-icon>
+              <span>09:00</span>
+              <span class="date">Hoje</span>
+            </div>
+            <div class="appointment-status confirmed">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+          </div>
+          
+          <div class="appointment-card">
+            <div class="appointment-avatar">JS</div>
+            <div class="appointment-info">
+              <h4>João Santos</h4>
+              <p>Clínico</p>
+            </div>
+            <div class="appointment-time">
+              <mat-icon>schedule</mat-icon>
+              <span>10:30</span>
+              <span class="date">Hoje</span>
+            </div>
+            <div class="appointment-status pending">
+              <mat-icon>access_time</mat-icon>
+            </div>
+          </div>
+          
+          <div class="appointment-card">
+            <div class="appointment-avatar">AC</div>
+            <div class="appointment-info">
+              <h4>Ana Costa</h4>
+              <p>Primeira Consulta</p>
+            </div>
+            <div class="appointment-time">
+              <mat-icon>schedule</mat-icon>
+              <span>14:00</span>
+              <span class="date">Hoje</span>
+            </div>
+            <div class="appointment-status confirmed">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+          </div>
+          
+          <div class="appointment-card">
+            <div class="appointment-avatar">PL</div>
+            <div class="appointment-info">
+              <h4>Pedro Lima</h4>
+              <p>Consulta Especializada</p>
+            </div>
+            <div class="appointment-time">
+              <mat-icon>schedule</mat-icon>
+              <span>15:30</span>
+              <span class="date">Amanhã</span>
+            </div>
+            <div class="appointment-status cancelled">
+              <mat-icon>cancel</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +15,7 @@ interface MenuItem {
 @Component({
   selector: 'app-sidebar',
   imports: [
+    CommonModule,
     MatListModule,
     MatIconModule,
     MatToolbarModule,
@@ -30,9 +32,9 @@ export class Sidebar {
     { label: 'Agenda', icon: 'calendar_today', route: '/agenda' },
     { label: 'Pacientes', icon: 'people', route: '/pacientes' },
     { label: 'Profissionais', icon: 'medical_services', route: '/profissionais' },
-    { label: 'Fórmulas', icon: 'science', route: '/formulas' },
-    { label: 'Relatórios', icon: 'assessment', route: '/relatorios' },
-    { label: 'Lista de Espera', icon: 'schedule', route: '/lista-espera' }
+    { label: 'Consultas', icon: 'assignment', route: '/consultas' },
+    { label: 'Lista de Espera', icon: 'schedule', route: '/lista-espera' },
+    { label: 'Relatórios', icon: 'trending_up', route: '/relatorios' }
   ];
 
   bottomMenuItems: MenuItem[] = [

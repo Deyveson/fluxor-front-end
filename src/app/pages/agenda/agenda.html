@@ -1,0 +1,129 @@
+<div class="agenda-container">
+  <app-sidebar></app-sidebar>
+  
+  <div class="main-content">
+    <header class="content-header">
+      <div class="search-bar">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar pacientes, agendamentos...">
+      </div>
+      
+      <div class="header-actions">
+        <mat-icon class="notification-icon">notifications_none</mat-icon>
+        <div class="user-avatar">IR</div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <!-- Toolbar da Agenda -->
+      <div class="agenda-toolbar">
+        <div class="toolbar-left">
+          <div class="date-picker-group">
+            <input type="date" [value]="selectedDate | date:'yyyy-MM-dd'" class="date-input">
+            <select class="professional-select" [(ngModel)]="selectedProfessional">
+              <option value="todos">Todos</option>
+              <option *ngFor="let prof of professionals" [value]="prof.id">{{ prof.name }}</option>
+            </select>
+          </div>
+
+          <div class="view-toggle">
+            <button 
+              [class.active]="selectedView === 'day'" 
+              (click)="setView('day')"
+              class="toggle-btn">
+              <mat-icon>calendar_view_day</mat-icon>
+              Dia
+            </button>
+            <button 
+              [class.active]="selectedView === 'week'" 
+              (click)="setView('week')"
+              class="toggle-btn">
+              <mat-icon>calendar_view_week</mat-icon>
+              Semana
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="action-btn primary" (click)="newAppointment()">
+            <mat-icon>add</mat-icon>
+            Novo Agendamento
+          </button>
+          <button class="action-btn secondary" (click)="recoverSchedule()">
+            <mat-icon>restore</mat-icon>
+            Recuperar Horário
+          </button>
+        </div>
+      </div>
+
+      <!-- Navegação de Data -->
+      <div class="date-navigation">
+        <button class="nav-btn" (click)="changeDate(-1)">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        
+        <div class="date-display">
+          {{ formatDate(selectedDate) }}
+        </div>
+        
+        <button class="nav-btn" (click)="changeDate(1)">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        
+        <button class="today-btn" (click)="goToToday()">
+          Hoje
+        </button>
+      </div>
+
+      <!-- Grid de Agenda -->
+      <div class="calendar-grid">
+        <!-- Header com profissionais -->
+        <div class="calendar-header">
+          <div class="time-column-header">SEMANA</div>
+          <div class="professionals-header">
+            <div class="professional-column" *ngFor="let prof of professionals">
+              <div class="professional-info">
+                <strong>{{ prof.name }}</strong>
+                <span>{{ prof.specialty }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid com horários -->
+        <div class="calendar-body">
+          <!-- Coluna de horários -->
+          <div class="time-column">
+            <div class="time-slot" *ngFor="let slot of timeSlots">
+              {{ slot.time }}
+            </div>
+          </div>
+
+          <!-- Grid de agendamentos -->
+          <div class="appointments-grid">
+            <div class="professional-column" *ngFor="let prof of professionals">
+              <!-- Grid lines -->
+              <div class="grid-lines">
+                <div class="grid-line" *ngFor="let slot of timeSlots"></div>
+              </div>
+              
+              <!-- Agendamentos -->
+              <div class="appointments-container">
+                <div 
+                  class="appointment-block"
+                  *ngFor="let apt of getAppointmentsForProfessional(prof.id)"
+                  [ngStyle]="getAppointmentStyle(apt)"
+                  [class.blocked]="apt.status === 'blocked'">
+                  <div class="appointment-content">
+                    <strong>{{ apt.title }}</strong>
+                    <span>{{ apt.startTime }} - {{ apt.endTime }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

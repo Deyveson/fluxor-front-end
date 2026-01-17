@@ -77,8 +77,8 @@
 
       <!-- Grid de Agenda -->
       <div class="calendar-grid">
-        <!-- Header com profissionais -->
-        <div class="calendar-header">
+        <!-- Header com profissionais (Visualização DIA) -->
+        <div class="calendar-header" *ngIf="selectedView === 'day'">
           <div class="time-column-header">SEMANA</div>
           <div class="professionals-header">
             <div class="professional-column" *ngFor="let prof of professionals">
@@ -90,8 +90,21 @@
           </div>
         </div>
 
-        <!-- Grid com horários -->
-        <div class="calendar-body">
+        <!-- Header com dias da semana (Visualização SEMANA) -->
+        <div class="calendar-header" *ngIf="selectedView === 'week'">
+          <div class="time-column-header">Horário</div>
+          <div class="week-days-header">
+            <div class="week-day-column" *ngFor="let day of getWeekDays()" [class.today]="isToday(day)">
+              <div class="week-day-info">
+                <strong>{{ getDayName(day) }}</strong>
+                <span class="day-number">{{ getDayNumber(day) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid com horários (Visualização DIA) -->
+        <div class="calendar-body" *ngIf="selectedView === 'day'">
           <!-- Coluna de horários -->
           <div class="time-column">
             <div class="time-slot" *ngFor="let slot of timeSlots">
@@ -99,7 +112,7 @@
             </div>
           </div>
 
-          <!-- Grid de agendamentos -->
+          <!-- Grid de agendamentos por profissional -->
           <div class="appointments-grid">
             <div class="professional-column" *ngFor="let prof of professionals">
               <!-- Grid lines -->
@@ -112,6 +125,40 @@
                 <div 
                   class="appointment-block"
                   *ngFor="let apt of getAppointmentsForProfessional(prof.id)"
+                  [ngStyle]="getAppointmentStyle(apt)"
+                  [class.blocked]="apt.status === 'blocked'">
+                  <div class="appointment-content">
+                    <strong>{{ apt.title }}</strong>
+                    <span>{{ apt.startTime }} - {{ apt.endTime }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid com horários (Visualização SEMANA) -->
+        <div class="calendar-body" *ngIf="selectedView === 'week'">
+          <!-- Coluna de horários -->
+          <div class="time-column">
+            <div class="time-slot" *ngFor="let slot of timeSlots">
+              {{ slot.time }}
+            </div>
+          </div>
+
+          <!-- Grid de agendamentos por dia da semana -->
+          <div class="week-grid">
+            <div class="week-day-column" *ngFor="let day of getWeekDays()" [class.today]="isToday(day)">
+              <!-- Grid lines -->
+              <div class="grid-lines">
+                <div class="grid-line" *ngFor="let slot of timeSlots"></div>
+              </div>
+              
+              <!-- Agendamentos do dia -->
+              <div class="appointments-container">
+                <div 
+                  class="appointment-block"
+                  *ngFor="let apt of getAppointmentsForProfessional(1)"
                   [ngStyle]="getAppointmentStyle(apt)"
                   [class.blocked]="apt.status === 'blocked'">
                   <div class="appointment-content">

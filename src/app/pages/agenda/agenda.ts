@@ -105,6 +105,41 @@ export class Agenda {
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
   }
 
+  getWeekDays(): Date[] {
+    const weekDays: Date[] = [];
+    const currentDate = new Date(this.selectedDate);
+    
+    // Encontrar o início da semana (domingo)
+    const dayOfWeek = currentDate.getDay();
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - dayOfWeek);
+    
+    // Gerar 7 dias da semana
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek);
+      day.setDate(startOfWeek.getDate() + i);
+      weekDays.push(day);
+    }
+    
+    return weekDays;
+  }
+
+  getDayName(date: Date): string {
+    const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+    return days[date.getDay()];
+  }
+
+  getDayNumber(date: Date): number {
+    return date.getDate();
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  }
+
   changeDate(days: number): void {
     const newDate = new Date(this.selectedDate);
     newDate.setDate(newDate.getDate() + days);

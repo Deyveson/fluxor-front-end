@@ -322,6 +322,52 @@
       }
     }
   }
+
+  .week-days-header {
+    flex: 1;
+    display: flex;
+
+    .week-day-column {
+      flex: 1;
+      padding: 16px 12px;
+      border-right: 1px solid #e0e0e0;
+      text-align: center;
+      transition: background 0.2s ease;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &.today {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+
+        .week-day-info {
+          strong, .day-number {
+            color: white;
+          }
+        }
+      }
+
+      .week-day-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+
+        strong {
+          font-size: 14px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .day-number {
+          font-size: 20px;
+          font-weight: 700;
+          color: #666;
+        }
+      }
+    }
+  }
 }
 
 .calendar-body {
@@ -415,6 +461,89 @@
 
             span {
               font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .week-grid {
+    flex: 1;
+    display: flex;
+
+    .week-day-column {
+      flex: 1;
+      position: relative;
+      border-right: 1px solid #e0e0e0;
+      min-width: 120px;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &.today {
+        background: rgba(59, 130, 246, 0.05);
+      }
+
+      .grid-lines {
+        .grid-line {
+          height: 60px;
+          border-bottom: 1px solid #e0e0e0;
+        }
+      }
+
+      .appointments-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        .appointment-block {
+          position: absolute;
+          left: 6px;
+          right: 6px;
+          border-radius: 8px;
+          padding: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+          &.blocked {
+            background: #cbd5e1;
+            border: 2px solid #94a3b8;
+
+            .appointment-content {
+              strong {
+                color: #475569;
+                font-size: 14px;
+              }
+
+              span {
+                color: #64748b;
+                font-size: 12px;
+              }
+            }
+          }
+
+          &:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          }
+
+          .appointment-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            strong {
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            span {
+              font-size: 12px;
             }
           }
         }
